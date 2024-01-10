@@ -3,9 +3,12 @@ import Layout from '@/components/Layout';
 import { Store } from '@/utils/store';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useContext } from 'react';
 
 const cart = () => {
+  const router = useRouter();
+
   const { state, dispatch } = useContext(Store);
   const {
     cart: { cartItems },
@@ -13,6 +16,11 @@ const cart = () => {
 
   const removeItem = (item) => {
     dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
+  };
+
+  const updateCart = (item, qty) => {
+    const quantity = Number(qty);
+    dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
   };
   return (
     <Layout>
@@ -56,7 +64,18 @@ const cart = () => {
                           {item.name}
                         </Link>
                       </td>
-                      <td className="p-5 text-right">{item.quantity}</td>
+                      <td className="p-5 text-right">
+                        <select
+                          value={item.quantity}
+                          onChange={(e) => updateCart(item, e.target.value)}
+                        >
+                          {[...Array(item.countInStock).keys()].map((y) => (
+                            <option value={y + 1} key={y + 1}>
+                              {y + 1}
+                            </option>
+                          ))}
+                        </select>
+                      </td>
                       <td className="p-5 text-right">${item.price}</td>
                       <td className="p-5 text-center">
                         <button onClick={() => removeItem(item)}>
@@ -91,7 +110,12 @@ const cart = () => {
                   </div>
                 </li>
                 <li>
-                  <button className="primary-button w-full ">Check Out</button>
+                  <button
+                    className="primary-button w-full"
+                    onClick={() => router.push('/shipping')}
+                  >
+                    Check Out
+                  </button>
                 </li>
               </ul>
             </div>
