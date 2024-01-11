@@ -1,6 +1,6 @@
 'use client';
 import Layout from '@/components/Layout';
-import { Store } from '@/utils/store';
+import { Store } from '@/utils/Store';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';

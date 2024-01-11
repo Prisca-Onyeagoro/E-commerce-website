@@ -1,6 +1,6 @@
 'use client';
 
-import { Store } from '@/utils/store';
+import { Store } from '@/utils/Store';
 import Link from 'next/link';
 import React from 'react';
 import { useContext } from 'react';

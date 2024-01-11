@@ -3,7 +3,7 @@ import Layout from '@/components/Layout';
 import data from '@/utils/data';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Store } from '@/utils/store';
+import { Store } from '@/utils/Store';
 import React, { useContext } from 'react';
 import { useRouter } from 'next/navigation';
 
