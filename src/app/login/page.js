@@ -27,7 +27,7 @@ const LoginScreen = () => {
           <input
             type="email"
             {...register('email', {
-              required: 'Please enter your email address',
+              required: 'Input your email',
               pattern: {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                 message: 'Enter a valid eamil',
@@ -51,7 +51,7 @@ const LoginScreen = () => {
             type="password"
             {...register('password', {
               required: 'Please enter a password',
-              minLength: { value: 3, message: 'Password is more than 5 char' },
+              minLength: { value: 3, message: 'Password is less than 5 char' },
             })}
             className="w-full font-bold"
             id="password"
