@@ -1,5 +1,6 @@
 'use client';
 import Layout from '@/components/Layout';
+import { signIn } from 'next-auth/react';
 import React from 'react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
@@ -11,7 +12,15 @@ const LoginScreen = () => {
     formState: { errors },
   } = useForm();
 
-  const submitHandler = ({ email, password }) => {};
+  const submitHandler = async ({ email, password }) => {
+    try {
+      const result = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+      });
+    } catch (error) {}
+  };
   return (
     <Layout>
       <form
