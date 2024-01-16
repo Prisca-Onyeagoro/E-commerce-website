@@ -1,15 +1,18 @@
-import { Mongoose } from 'mongoose';
-import { NextResponse } from 'next/server';
+import mongoose from 'mongoose';
 
-export const connect = async () => {
+export async function connect() {
   try {
-    const uri = process.env.MONGO_URI;
-    await Mongoose.connect(uri);
-    console.log('connection successful');
-    NextResponse.json({ message: 'connection successful' }, { status: 500 });
+    mongoose.connect(process.env.MONGO_URi);
+    const connection = mongoose.connection;
+    connection.on('connected', () => {
+      console.log('Mongodb is connected successfully');
+    });
+    connection.on('error', (err) => {
+      console.log('Mongodb has encountered an error' + err);
+      process.exit();
+    });
   } catch (error) {
-    console.log('connection failed', error.message);
-    NextResponse.json({ message: 'connection successful' }, { status: 500 });
-    process.exit(1);
+    console.log('something went wrong check connection');
+    console.log(error);
   }
-};
+}
