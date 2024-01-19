@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { Menu } from '@headlessui/react';
 
 export default function Layout({ children }) {
   const { status, data: session } = useSession();
@@ -40,7 +41,16 @@ export default function Layout({ children }) {
               {status === 'loading' ? (
                 'wait...'
               ) : session?.user ? (
-                session.user.name
+                <Menu as="div" className="relative inline-block">
+                  <Menu.Button className="text-yellow-700">
+                    {session.user.name}
+                  </Menu.Button>
+                  <Menu.Items className="absolute right-0 w-56 origin-top-right shadow-lg">
+                    <Menu.Item>
+                      <DropdownLink></DropdownLink>
+                    </Menu.Item>
+                  </Menu.Items>
+                </Menu>
               ) : (
                 <Link className="p-2   font-semibold" href={'/login'}>
                   Login

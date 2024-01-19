@@ -29,7 +29,6 @@ const authOptions = {
         const user = await User.findOne({
           email: credentials.email,
         });
-        console.log(user.email);
         if (user && bcrypt.compareSync(credentials.password, user.password)) {
           return {
             _id: user._id,
