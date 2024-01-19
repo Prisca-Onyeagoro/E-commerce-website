@@ -1,10 +1,10 @@
 import { connect } from '@/utils/db';
 import NextAuth from 'next-auth';
-import User from '../../../../models/User';
+import User from '../../../../../models/User';
 import bcrypt from 'bcryptjs';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-export const authOptions = {
+const authOptions = {
   session: {
     strategy: 'jwt',
   },
@@ -29,6 +29,7 @@ export const authOptions = {
         const user = await User.findOne({
           email: credentials.email,
         });
+        console.log(user.email);
         if (user && bcrypt.compareSync(credentials.password, user.password)) {
           return {
             _id: user._id,
@@ -44,4 +45,6 @@ export const authOptions = {
   ],
 };
 
-export default NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };

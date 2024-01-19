@@ -4,7 +4,7 @@ import React from 'react';
 const ProductItem = ({ product }) => {
   return (
     <>
-      <div className="card">
+      <div className="card p-5 transform transition duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg">
         <Link href={`/product/${product.slug}`}>
           <img
             src={product.image}

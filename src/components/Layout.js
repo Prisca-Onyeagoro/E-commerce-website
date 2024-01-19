@@ -1,11 +1,15 @@
 'use client';
 
 import { Store } from '@/utils/Store';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 export default function Layout({ children }) {
+  const { status, data: session } = useSession();
   const { state } = useContext(Store);
   const { cart } = state;
   const [cartItemsCount, setcartItemsCount] = useState(0);
@@ -14,6 +18,7 @@ export default function Layout({ children }) {
   }, [cart]);
   return (
     <>
+      <ToastContainer position="bottom-center" limit={9} />
       <div className="flex flex-col min-h-screen justify-between">
         <header>
           <nav className="flex h-12 items-center px-4 justify-between shadow-md">
@@ -31,9 +36,16 @@ export default function Layout({ children }) {
                   </span>
                 )}
               </Link>
-              <Link className="p-2   font-semibold" href={'/login'}>
-                Login
-              </Link>
+
+              {status === 'loading' ? (
+                'wait...'
+              ) : session?.user ? (
+                session.user.name
+              ) : (
+                <Link className="p-2   font-semibold" href={'/login'}>
+                  Login
+                </Link>
+              )}
             </div>
           </nav>
         </header>
