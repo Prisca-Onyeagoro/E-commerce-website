@@ -8,6 +8,7 @@ import { useContext } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { Menu } from '@headlessui/react';
+import DropdownLink from './DropdownLink';
 
 export default function Layout({ children }) {
   const { status, data: session } = useSession();
@@ -42,12 +43,37 @@ export default function Layout({ children }) {
                 'wait...'
               ) : session?.user ? (
                 <Menu as="div" className="relative inline-block">
-                  <Menu.Button className="text-yellow-700">
+                  <Menu.Button className="text-blue-600">
                     {session.user.name}
                   </Menu.Button>
-                  <Menu.Items className="absolute right-0 w-56 origin-top-right shadow-lg">
+                  <Menu.Items className="absolute right-0 w-56 origin-top-right bg-white  shadow-lg ">
                     <Menu.Item>
-                      <DropdownLink></DropdownLink>
+                      <DropdownLink className="dropdown-link" href="/profile">
+                        Profile
+                      </DropdownLink>
+                    </Menu.Item>
+                    <Menu.Item>
+                      <DropdownLink
+                        className="dropdown-link"
+                        href="/order-history"
+                      >
+                        Order History
+                      </DropdownLink>
+                    </Menu.Item>
+
+                    <Menu.Item>
+                      <DropdownLink
+                        className="dropdown-link"
+                        href="/admin/dashboard"
+                      >
+                        Admin Dashboard
+                      </DropdownLink>
+                    </Menu.Item>
+
+                    <Menu.Item>
+                      <p className="dropdown-link" href="#">
+                        Logout
+                      </p>
                     </Menu.Item>
                   </Menu.Items>
                 </Menu>
